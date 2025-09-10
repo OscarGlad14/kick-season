@@ -1,3 +1,5 @@
+Link Website : [Kick Season](https://oscar-glad-kickseason.pbp.cs.ui.ac.id/)
+
 1. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step!
 Jawab :
 Berikut adalah langkah-langkah yang saya lakukan untuk menyelesaikan seluruh checklist pada tugas 2.
