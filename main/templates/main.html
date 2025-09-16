@@ -35,6 +35,8 @@
 
   <p>{{ product.description|truncatewords:25 }}...</p>
 
+  <h4> Price: {{ product.price }} </h4>
+
   <p><a href="{% url 'main:show_product' product.id %}"><button>Read More</button></a></p>
 </div>
 

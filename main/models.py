@@ -21,7 +21,7 @@ class Product(models.Model):
     is_featured = models.BooleanField(default=False)
     stock = models.IntegerField(default=0)
     brand = models.CharField(max_length=255)
-
+    
     def __str__(self):
         return self.name
     
