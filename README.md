@@ -1,6 +1,6 @@
 # [Kick Season](https://oscar-glad-kickseason.pbp.cs.ui.ac.id/)
 
-## TUGAS 1
+## TUGAS 2
 
 ### 1. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step!
 Jawab :
@@ -87,3 +87,42 @@ Jawab : Saya senang dengan kinerja asisten dosen pada tutorial 2 karena dokumen 
 
 ### Show JSON by ID
 ![Show JSON By ID](./assets/ShowJSONbyID.png)
+
+## TUGAS 4
+### 1. Apa itu Django AuthenticationForm? Jelaskan juga kelebihan dan kekurangannya.
+Jawab :
+Django AuthenticationForm merupakan form bawaan Django yang bisa menangani proses login. Form ini akan meminta username serta password, kemudian melakukan validasi terhadap username dan password, lalu mengembalikan object user yang sesuai. Kelebihan dari Django AuthenticationForm adalah mempercepat developer untuk membuat proses autentikasi serta memiliki keamanan yg cukup baik (karena dia menyimpan passwordnya dengan hash). Sebaliknya, kekurangann Django AuthenticationForm adalah field yang terbatas, belum memungkinkan pengguna untuk login dengan metode selain username dan password.
+
+### 2. Apa perbedaan antara autentikasi dan otorisasi? Bagaiamana Django mengimplementasikan kedua konsep tersebut?
+Jawab :
+Autentikasi berarti menentukan siapa user tersebut, sedangkan otorisasi berarti menentukan apa akses yang boleh dilakukan oleh user tersebut. Misal, kita login di Scele, kita melalui proses autentikasi, kemudian kita di-otorisasi dan mendapat akses sebagai mahasiswa. Django mengimplementasikan autentikasi ini dengan authenticate() yang berfungsi untuk memeriksa apakah username dan password yang diinput sesuai dengan simpanan di database. Jika sesuai, maka Django akan mengembalikan object user tersebut. Lalu, otorisasi di Django bisa diimplementasikan dengan decorator permission_required yang memungkinkan beberapa fungsi di views.py hanya dapat diakses oleh user dengan permission tertentu.
+
+### 3. Apa saja kelebihan dan kekurangan session dan cookies dalam konteks menyimpan state di aplikasi web?
+Jawab :
+Cookies
+Kelebihan : Disimpan data di sisi client sehingga tidak membebani server
+
+Kekurangan : Ukuran terbatas, bisa menambah beban jaringan, dan rawan terkena XSS
+
+Session
+Kelebihan : lebih aman karena tidak disimpan di client side dan ukuran bisa lebih besar
+
+Kekurangan : Butuh space yg berpotensi membebani server
+
+
+### 4. Apakah penggunaan cookies aman secara default dalam pengembangan web, atau apakah ada risiko potensial yang harus diwaspadai? Bagaimana Django menangani hal tersebut?
+Jawab :
+Pengunaan cookies tidak sepenuhnya aman karena memiliki risiko keamanan, salah satunya adalah XSS, yaitu vulnerability di mana seseorang
+bisa melakukan injeksi kode Javascript yang akan dieksekusi oleh client. XSS ini bisa saja mencuri cookies dari pengguna yang sudah melakukan login ke sebuah website. Salah satu upaya penanganan Django atas risiko keamanan ini adalah dengan HttpOnly yang dapat mencegah akses cookies lewat JavaScript.
+Referensi : Slide PBP Pekan 5
+
+### 5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+Jawab :
+1. Membuat fungsi untuk meng-handle proses registrasi, login, dan logout
+2. Membuat halaman HTML untuk menampilkan proses registrasi dan login
+3. Membuat path di urls.py untuk mengarahkan ke fungsi yang menghandle proses registrasi, login, dan logout
+4. Menambahkan field user di models.py
+5. Memanfaatkan user untuk membuat filter penampilan product di views.py (jadi bisa menampilkan product yang hanya ditambahkan oleh pengguna tertentu)
+6. Mengatur agar fungsi show_main, show_product, dan create_product hanya bisa diakses bila user berhasil login (dengan decorator yang mengarahkan user ke halaman login)
+Note : Saya juga mengimplementasikan cookies dengan men-set cookies ketika user berhasil login, kemudian menghapusnya ketika user melakukan logout.
+

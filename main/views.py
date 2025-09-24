@@ -45,7 +45,6 @@ def logout_user(request):
     response.delete_cookie('last_login')
     return response
 
-
 @login_required(login_url='/login')
 def show_main(request):
     filter_type = request.GET.get("filter", "all")
