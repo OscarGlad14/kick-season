@@ -126,3 +126,39 @@ Jawab :
 6. Mengatur agar fungsi show_main, show_product, dan create_product hanya bisa diakses bila user berhasil login (dengan decorator yang mengarahkan user ke halaman login)
 Note : Saya juga mengimplementasikan cookies dengan men-set cookies ketika user berhasil login, kemudian menghapusnya ketika user melakukan logout.
 
+## Tugas 5
+### 1. Jika terdapat beberapa CSS selector untuk suatu elemen HTML, jelaskan urutan prioritas pengambilan CSS selector tersebut!
+Jawab:
+1. Inline Style, yaitu style langsung di elemen HTML (<div class="py-4">)
+2. ⁠ID Selector, yaitu style yg diberikan pada ID elemen spesifik. Contoh: #header
+3. ⁠Class / Attribute / Pseudo-class Selector, yaitu style yang diberikan pada level class/atribut. Contoh: .title, [type="text"]
+4. ⁠Element / Pseudo-element Selector, yaitu style yang diberikan pada level element. Contoh: h1, p, ::before
+
+### 2. Mengapa responsive design menjadi konsep yang penting dalam pengembangan aplikasi web? Berikan contoh aplikasi yang sudah dan belum menerapkan responsive design, serta jelaskan mengapa!
+Jawab:
+Responsive design penting karena user tidak hanya menggunakan satu jenis perangkat. Jika kita hanya membuat design pada desktop, pengguna dengan perangkat mobile akan merasakan user expeerience yang buruk. Contoh web yang sudah menerapkan responsive design adalah youtube.com, sedangkan web yang belum menerapkan responsive design adalah SIAK-NG.
+
+
+### 3. Jelaskan perbedaan antara margin, border, dan padding, serta cara untuk mengimplementasikan ketiga hal tersebut!
+Jawab:
+Padding merupakan jarak dalam elemen (ruang antara border dan konten), sementara margin adalah jarak di luar elemen (yang memisahkan antar elemen). Lalu, border adalah garis batas yang mengelilingi suatu elemen.
+Cara mengimplementasikan (tailwind):
+Border -> border-solid border-2 border-sky-500
+Padding -> py-4, px-8
+Margin -> mt-8
+
+### 4. Jelaskan konsep flex box dan grid layout beserta kegunaannya!
+Jawab:
+Flexbox adalah sistem layout 1D yang dirancang untuk mengatur elemen-elemen dalam satu baris atau kolom, sedangkan grid adalah sistem layout 2D yang memungkinkan pengaturan elemen secara horizontal (kolom) dan vertikal (baris) dalam sebuah kontainer.
+
+Maka, flexbox lebih cocok digunakan untuk mengatur layout yg 1D (vertikal atau horizontal saja). Grid cocok digunakan untuk mengatur layout yg membutuhkan kombinasi baris dan kolom
+
+### 5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial!
+Jawab:
+1. Membuat fungsi untuk menghandle edit dan hapus produk pada file views.py
+2. ⁠Membuat path untuk kedua fungsi pada file urls.py
+3. ⁠Membuat style global
+4. ⁠Mengaplikasikan style global
+5. ⁠Mengatur hardware dan static file di settings.py ⁠
+6. ⁠Membuat navbar.html
+7. ⁠Membuat style pada seluruh page html (main, show product, create product, edit product)
