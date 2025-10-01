@@ -1,58 +1,71 @@
-<h1>Toko Peralatan Sepakbola</h1>
+{% extends 'base.html' %}
+{% load static %}
 
-<h5>Nama Toko: </h5>
-<p>{{ nama_toko }}</p>
+{% block meta %}
+<title>Toko Peralatan Sepakbola</title>
+{% endblock meta %}
 
-<h5>Name:</h5>
-<p>{{ name }}</p>
+{% block content %}
+{% include 'navbar.html' %}
+<div class="bg-gray-50 w-full pt-16 min-h-screen">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
-<h5>Class:</h5>
-<p>{{ class }}</p>
+    <!-- Header -->
+    <div class="mb-6">
+      <h1 class="text-3xl font-bold text-gray-900">Toko Peralatan Sepakbola</h1>
+      <p class="text-gray-600">Nama Toko: <span class="font-medium">{{ nama_toko }}</span></p>
+      <p class="text-gray-600">Name: <span class="font-medium">{{ name }}</span></p>
+      <p class="text-gray-600">Class: <span class="font-medium">{{ class }}</span></p>
+    </div>
 
-<a href="{% url 'main:create_product' %}">
-  <button>+ Add Product</button>
-</a>
+    <!-- Action Buttons -->
+    <div class="flex flex-wrap gap-3 mb-6">
+      <a href="{% url 'main:create_product' %}" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">
+        + Tambah Produk
+      </a>
+    </div>
 
-<a href="{% url 'main:logout' %}">
-  <button>Logout</button>
-</a>
-<h5>Sesi terakhir login: {{ last_login }}</h5>
+    <!-- Filter -->
+    <form method="GET" class="flex flex-col sm:flex-row gap-3 mb-6 bg-white rounded-lg border border-gray-200 p-4">
+  
+  <!-- Search Bar -->
+  <input 
+    type="text" 
+    name="search" 
+    value="{{ request.GET.search }}" 
+    placeholder="Search product..." 
+    class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+  >
 
-<a href="?filter=all">
-    <button type="button">All Products</button>
-</a>
-<a href="?filter=my">
-    <button type="button">My Products</button>
-</a> 
+  <!-- Dropdown Filter -->
+    <select name="filter" class="w-40 px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+      <option value="">All Products</option>
+      <option value="my" {% if request.GET.filter == 'my' %}selected{% endif %}>My Products</option>
+      <option value="featured" {% if request.GET.filter == 'featured' %}selected{% endif %}>Featured</option>
+    </select>
 
-<hr>
+    <!-- Submit Button -->
+    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">
+      Apply
+    </button>
 
-{% if not product_list %}
-<p>Belum ada product yang dijual di toko ini.</p>
-{% else %}
+  </form>
 
-{% for product in product_list %}
-<div>
-  <h2><a href="{% url 'main:show_product' product.id %}">{{ product.name }}</a></h2>
 
-  <p><b>{{ product.get_category_display }}</b>{% if product.is_featured %} | 
-    <b>Featured</b>{% endif %}{% if product.is_product_hot %} | 
-    <b>Hot</b>{% endif %} | <i>{{ product.created_at|date:"d M Y H:i" }}</i> 
-    | Views: {{ product.product_views }}</p>
 
-  {% if product.thumbnail %}
-  <img src="{{ product.thumbnail }}" alt="thumbnail" width="150" height="100">
-  <br />
-  {% endif %}
+    <!-- Product List -->
+    {% if not product_list %}
+      <div class="bg-white rounded-lg border border-gray-200 p-12 text-center">
+        <h3 class="text-lg font-medium text-gray-900 mb-2">Belum ada product yang dijual di toko ini.</h3>
+      </div>
+    {% else %}
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for product in product_list %}
+          {% include 'card_product.html' with product=product %}
+        {% endfor %}
+      </div>
+    {% endif %}
 
-  <p>{{ product.description|truncatewords:25 }}...</p>
-
-  <h4> Price: {{ product.price }} </h4>
-
-  <p><a href="{% url 'main:show_product' product.id %}"><button>Read More</button></a></p>
+  </div>
 </div>
-
-<hr>
-{% endfor %}
-
-{% endif %}
+{% endblock content %}

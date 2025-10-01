@@ -47,13 +47,19 @@ def logout_user(request):
 
 @login_required(login_url='/login')
 def show_main(request):
-    filter_type = request.GET.get("filter", "all")
-    
-    if filter_type == "all":
-        product_list = Product.objects.all()
-    else:
-        product_list = Product.objects.filter(user=request.user)
-    
+    filter_type = request.GET.get("filter", "")
+    search_query = request.GET.get("search", "")
+
+    product_list = Product.objects.all()
+
+    if filter_type == "my":
+        product_list = product_list.filter(user=request.user)
+    elif filter_type == "featured":
+        product_list = product_list.filter(is_featured=True)
+
+    if search_query:
+        product_list = product_list.filter(name__icontains=search_query)
+
     context = {
         'nama_toko' : 'Kick Season',
         'name': 'Oscar Glad Winfi Simanullang',
@@ -63,6 +69,7 @@ def show_main(request):
     }
 
     return render(request, "main.html", context)
+
 
 @login_required(login_url='/login')
 def show_product(request, id):
@@ -113,3 +120,22 @@ def show_json_by_id(request, id):
        return HttpResponse(json_data, content_type="application/json")
    except Product.DoesNotExist:
        return HttpResponse(status=404)
+   
+def edit_product(request, id):
+    product = get_object_or_404(Product, pk=id)
+    form = ProductForm(request.POST or None, instance=product)
+    if form.is_valid() and request.method == 'POST':
+        form.save()
+        return redirect('main:show_main')
+
+    context = {
+        'form': form
+    }
+
+    return render(request, "edit_product.html", context)
+
+def delete_product(request, id):
+    product = get_object_or_404(Product, pk=id)
+    product.delete()
+    
+    return HttpResponseRedirect(reverse('main:show_main'))
